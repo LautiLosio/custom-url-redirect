@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Custom URL Redirector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Custom Redirects</h1>
+      <button id="addRuleBtn" class="primary">➕ Add Rule</button>
+    </header>
+
+    <section id="rulesSection">
+      <ul id="rulesList" class="rules-list"></ul>
+      <div id="emptyState" class="empty hidden">No rules yet. Add one to get started!</div>
+    </section>
+
+    <section id="editor" class="editor hidden">
+      <h2 id="editorTitle">Add Rule</h2>
+      <label>
+        Find (Regex)
+        <input id="findPattern" placeholder="e.g. vscode://(.*)" />
+      </label>
+      <label>
+        Replace
+        <input id="replacePattern" placeholder="e.g. cursor://$1" />
+      </label>
+      <label class="inline">
+        <input type="checkbox" id="ruleEnabled" checked /> Enabled
+      </label>
+      <div class="test-area">
+        <input id="testUrl" placeholder="Test URL (optional)" />
+        <button id="testBtn">▶ Test</button>
+        <div id="testResult" class="test-result"></div>
+      </div>
+      <div class="actions">
+        <button id="saveRuleBtn" class="primary">Save</button>
+        <button id="cancelBtn" class="secondary">Cancel</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
