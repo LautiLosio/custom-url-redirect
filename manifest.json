@@ -3,11 +3,8 @@
   "name": "Custom URL Redirector",
   "version": "1.0",
   "description": "Define and manage custom URL redirections with regex pattern matching",
-  "permissions": [
-    "storage",
-    "tabs",
-    "webNavigation"
-  ],
+  "permissions": ["storage", "tabs", "webNavigation"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },

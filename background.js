@@ -16,7 +16,7 @@ async function loadRedirectRules() {
 function applyRedirectionRules(url) {
   for (const rule of redirectRules) {
     if (!rule.enabled) continue;
-    
+
     try {
       const regex = new RegExp(rule.findPattern);
       if (regex.test(url)) {
@@ -47,7 +47,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 });
 
 // Handle new tab creation
-chrome.tabs.onCreated.addListener(async (tab) => {
+chrome.tabs.onCreated.addListener(async tab => {
   if (tab.url && tab.url !== 'chrome://newtab/') {
     const redirectedUrl = applyRedirectionRules(tab.url);
     if (redirectedUrl) {
@@ -61,8 +61,9 @@ chrome.tabs.onCreated.addListener(async (tab) => {
 });
 
 // Listen for web navigation events (before navigation completes)
-chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
-  if (details.frameId === 0) { // Main frame only
+chrome.webNavigation.onBeforeNavigate.addListener(async details => {
+  if (details.frameId === 0) {
+    // Main frame only
     const redirectedUrl = applyRedirectionRules(details.url);
     if (redirectedUrl) {
       try {
@@ -90,15 +91,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const regex = new RegExp(request.pattern);
       const result = regex.test(request.testUrl);
       const replacement = request.testUrl.replace(regex, request.replacement);
-      sendResponse({ 
-        valid: true, 
+      sendResponse({
+        valid: true,
         matches: result,
-        result: replacement 
+        result: replacement,
       });
     } catch (error) {
-      sendResponse({ 
-        valid: false, 
-        error: error.message 
+      sendResponse({
+        valid: false,
+        error: error.message,
       });
     }
   }

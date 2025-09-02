@@ -49,14 +49,11 @@ function renderRules(rules) {
     const actions = document.createElement('div');
     actions.className = 'actions-inline';
 
-    const enabled = document.createElement('span');
-    enabled.className = 'badge';
-    enabled.textContent = rule.enabled ? 'Enabled' : 'Disabled';
-
     const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'secondary icon';
+    toggleBtn.className = `${rule.enabled ? 'primary active-pulse' : 'secondary'} icon`;
     toggleBtn.textContent = rule.enabled ? '⏸' : '▶';
     toggleBtn.title = rule.enabled ? 'Disable' : 'Enable';
+    toggleBtn.setAttribute('aria-pressed', String(!!rule.enabled));
     toggleBtn.addEventListener('click', async () => {
       const data = await chrome.storage.local.get('redirectRules');
       const rulesNow = data.redirectRules || [];
@@ -67,7 +64,7 @@ function renderRules(rules) {
 
     const editBtn = document.createElement('button');
     editBtn.className = 'secondary icon';
-    editBtn.textContent = '✏️';
+    editBtn.textContent = '✎';
     editBtn.title = 'Edit';
     editBtn.addEventListener('click', async () => {
       editingIndex = index;
@@ -79,8 +76,8 @@ function renderRules(rules) {
     });
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'secondary icon';
-    deleteBtn.textContent = '🗑️';
+    deleteBtn.className = 'secondary icon danger';
+    deleteBtn.textContent = '×';
     deleteBtn.title = 'Delete';
     deleteBtn.addEventListener('click', async () => {
       const data = await chrome.storage.local.get('redirectRules');
@@ -90,7 +87,6 @@ function renderRules(rules) {
       loadRules();
     });
 
-    actions.appendChild(enabled);
     actions.appendChild(toggleBtn);
     actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
