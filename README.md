@@ -44,7 +44,6 @@ Define and manage your own URL redirections using powerful regex rules. Redirect
 ### 🔑 Permissions
 - **storage**: Save your rules locally.
 - **tabs** and **webNavigation**: Observe and update tab URLs to perform redirects.
-- **Host access**: `<all_urls>` so rules can match any site you choose.
 
 ### 🛡️ Privacy
 All data (your rules) are stored in `chrome.storage.local`. Nothing is sent anywhere.
